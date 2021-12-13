@@ -27,6 +27,7 @@ const renderCountry = (data, className = "") => {
   } = data;
 
   const countryElm = document.querySelector(".countries");
+
   const htmlContent = `
     <div class="country ${className}">
       <img class="country__img" src="${countryFlag}" />
@@ -59,6 +60,12 @@ const getCountryDataByName = async (countryName) => {
     );
     if (!response.ok) throw new Error(`Something is wrong! ${response.status}`);
     const data = await response.json();
+
+    // let cityListItems = [];
+    // cityListItems.push(data[0].name.common);
+    // console.log(cityListItems);
+    // console.log(data[0].name.common);
+
     return data[0];
   } catch (error) {
     renderError(error.message);
@@ -69,6 +76,7 @@ const getCountryDataByName = async (countryName) => {
 
 const showCountry = async () => {
   let countryName = input.value;
+
   try {
     const countryData = await getCountryDataByName(countryName);
     renderCountry(countryData);
@@ -76,8 +84,8 @@ const showCountry = async () => {
     renderError(error.message);
     console.log(error);
   }
-  form.reset();
-  input.focus();
+  // form.reset();
+  // input.focus();
 };
 
 // showCountry("Turkey");
@@ -128,3 +136,13 @@ const renderError = (message) => {
   countryElm.innerHTML += message;
   countryElm.style.opacity = 1;
 };
+
+// if (input.value == countryName) {
+//   renderError(
+//     `You already know the information about ${countryName}, Please search for another country 😉`
+//   );
+// }
+
+// renderError(
+//   `You already know the information about ${countryName.toUpperCase()}, Please search for another country 😉`
+// );
